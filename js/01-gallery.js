@@ -13,9 +13,9 @@ galleryItems.forEach((item) => {
 
   const galleryImage = document.createElement("img");
   galleryImage.classList.add("gallery__image");
-  galleryImage.src = item.preview;
+  galleryImage.src = item.preview; 
   galleryImage.alt = item.description;
-  galleryImage.dataset.source = item.original; 
+  galleryImage.dataset.source = item.original;  
 
   galleryLink.appendChild(galleryImage);
   galleryItem.appendChild(galleryLink);
@@ -23,25 +23,33 @@ galleryItems.forEach((item) => {
 });
 
 
+
+
+
+
 console.log(galleryItems);
 
 
-galleryContainer.addEventListener("click", onGalleryContainerClick);
 
-function onGalleryContainerClick(event) {
-  event.preventDefault(); // Заборонити перехід за посиланням
-  const target = event.target;
 
-  // Перевірити, чи був клік на елементі з класом gallery__image
-  if (target.classList.contains("gallery__image")) {
-    // Отримати URL великого зображення з data-атрибуту source
-    const largeImageUrl = target.dataset.source;
+// Відкриття модального вікна при кліку на елементі галереї
+galleryContainer.addEventListener("click", (event) => {
+  event.preventDefault(); // Забороняємо стандартну дію посилання
+  if (event.target.nodeName === "IMG") {
+    const largeImageUrl = event.target.dataset.source; // Отримуємо URL великого зображення
 
-    // Тут ви можете використовувати largeImageUrl для подальшої обробки
-    // Наприклад, відкрити модальне вікно з цим зображенням
-    // або використовувати його в інших способах
-    console.log(largeImageUrl);
+    // Створюємо модальне вікно з великим зображенням і встановлюємо клас для стилів
+    const instance = basicLightbox.create(`
+      <img src="${largeImageUrl}" alt="" />
+    `, {
+      className: 'my-lightbox', // Додайте клас для стилізації модального вікна
+    });
+
+    instance.show(); // Показуємо модальне вікно
   }
-}
+});
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Ваш код для створення галереї і обробки подій кліку
+});
 
