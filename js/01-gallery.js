@@ -31,6 +31,23 @@ console.log(galleryItems);
 
 
 
+// // ПОВЕРНУТИ ЯКЩО НЕ СПРАЦЮЄ КОД НИЖЧЕ//
+// // Відкриття модального вікна при кліку на елементі галереї
+// galleryContainer.addEventListener("click", (event) => {
+//   event.preventDefault(); // Забороняємо стандартну дію посилання
+//   if (event.target.nodeName === "IMG") {
+//     const largeImageUrl = event.target.dataset.source; // Отримуємо URL великого зображення
+
+//     // Створюємо модальне вікно з великим зображенням і встановлюємо клас для стилів
+//     const instance = basicLightbox.create(`
+//       <img src="${largeImageUrl}" alt="" />
+//     `, {
+//       className: 'my-lightbox', // Додайте клас для стилізації модального вікна
+//     });
+
+//     instance.show(); // Показуємо модальне вікно
+//   }
+// });
 
 // Відкриття модального вікна при кліку на елементі галереї
 galleryContainer.addEventListener("click", (event) => {
@@ -38,16 +55,27 @@ galleryContainer.addEventListener("click", (event) => {
   if (event.target.nodeName === "IMG") {
     const largeImageUrl = event.target.dataset.source; // Отримуємо URL великого зображення
 
-    // Створюємо модальне вікно з великим зображенням і встановлюємо клас для стилів
-    const instance = basicLightbox.create(`
+    // Отримуємо модальне вікно
+    const modal = basicLightbox.create(`
       <img src="${largeImageUrl}" alt="" />
     `, {
       className: 'my-lightbox', // Додайте клас для стилізації модального вікна
     });
 
-    instance.show(); // Показуємо модальне вікно
+    // Отримуємо елемент <img> у модальному вікні
+    const modalImage = modal.element().querySelector('img');
+
+    // Опціонально встановлюємо атрибути альтернативного тексту і будь-які інші атрибути, які вам потрібні
+
+    // Відкриваємо модальне вікно
+    modal.show();
   }
 });
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   // Ваш код для створення галереї і обробки подій кліку
